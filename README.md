@@ -5,16 +5,18 @@ Probably not because here is no validation, no schemas and no complex setup.
 
 Thus **json-o-matic** it's a lot simpler:
 
-    var data, fields;
+```javascript
+var data, fields;
 
-    data = { title: 'Hello World!' };
+data = { title: 'Hello World!' };
 
-    fields = {
-      title: { as: 'scalar', label: 'Title:', size: 20 },
-      status: { as: 'list', label: 'Status:', set: ['draft', 'published'] }
-    };
+fields = {
+  title: { as: 'scalar', label: 'Title:', size: 20 },
+  status: { as: 'list', label: 'Status:', set: ['draft', 'published'] }
+};
+```
 
-    $('#form-metadata').jsonomatic({ set: fields, use: data });
+$('#form-metadata').jsonomatic({ set: fields, use: data });
 
 You'll get just a field set.
 
