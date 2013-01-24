@@ -36,7 +36,7 @@ Defaults:
  - **cols**: 40
  - **rows**: 4
 
-_Without options_
+_Without options._
 
 ### scalar
 
@@ -46,7 +46,7 @@ Defaults:
 
  - **type**: text
 
-_Without options_
+_Without options._
 
 ### toggle
 
@@ -59,15 +59,13 @@ Defaults:
 
 Options:
 
- - **set**: List of values to validate the state.
-.
+ - **set**: List of values to validate the state
+
 ### group
 
 Radios or checkboxes nor more nor less.
 
-Options:
-
- Defaults:
+Defaults:
 
  - **invert**: `true`
  - **multiple**: `false`
@@ -76,7 +74,7 @@ The radio type will be used by default.
 
 Options:
 
- - **multiple**: Use checkboxes to display multiple choices.
+ - **multiple**: Use checkboxes to display multiple choices
 
 ### list
 
