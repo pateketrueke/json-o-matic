@@ -14,9 +14,9 @@ fields = {
   title: { as: 'scalar', label: 'Title:', size: 20 },
   status: { as: 'list', label: 'Status:', set: ['draft', 'published'] }
 };
-```
 
 $('#form-metadata').jsonomatic({ set: fields, use: data });
+```
 
 You'll get just a field set.
 
