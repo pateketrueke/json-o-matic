@@ -1,0 +1,24 @@
+
+<form>
+  <fieldset id="form-metadata">
+    <legend>Options<legend>
+  </fieldset>
+</form>
+
+<script src="jquery.min.js"></script>
+<script src="json-o-matic.js"></script>
+
+<script>
+
+  var data, fields;
+
+  data = { title: 'Hello World!' };
+
+  fields = {
+    title: { as: 'scalar', label: 'Title:', size: 20 },
+    status: { as: 'list', label: 'Status:', set: ['draft', 'published'] }
+  };
+
+  $('#form-metadata').jsonomatic({ set: fields, use: data });
+
+</script>
