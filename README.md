@@ -10,7 +10,7 @@ Thus **json-o-matic** it's a lot simpler:
     data = { title: 'Hello World!' };
 
     fields = {
-      title: { as: 'scalar', size: 20 },
+      title: { as: 'scalar', label: 'Title:', size: 20 },
       status: { as: 'list', label: 'Status:', set: ['draft', 'published'] }
     };
 
@@ -114,7 +114,7 @@ Options:
 
  - **set**: Static subset of fields
 
-	
+
 Afterwards you send the form you'll receive a normal data structure.
 
 
