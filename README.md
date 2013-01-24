@@ -117,11 +117,22 @@ Options:
 
 Afterwards you send the form you'll receive a normal data structure.
 
+```
+Array
+(
+    [title] => Hello World!
+    [status] => draft
+)
+```
+
+That's it!
+
 
 ## Known issues
 
  - Unstyled and not tested cross-browser
  - Missing enough documentation
+
 
 ## Keep Calm & Contribute
 
