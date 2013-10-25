@@ -110,6 +110,10 @@
 
   var build = {
 
+    raw: function (key, name, value, params) {
+      return String(value);
+    },
+
     text: function (key, name, value, params) {
       var html = '',
           defs = { cols: 40, rows: 4 };
@@ -279,8 +283,17 @@
 
 
   var item = function (key, name, value, params) {
-    var defs = { as: 'scalar' },
+    var fn,
+        defs = { as: 'scalar' },
         config = $.extend(defs, params);
+
+    if ('function' === typeof config.val) {
+      fn = config.val;
+
+      delete config.val;
+
+      value = fn(value, { key: key, name: name, params: config });
+    }
 
     return build[config.as](key, name, value, config);
   };
