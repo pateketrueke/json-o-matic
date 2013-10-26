@@ -51,7 +51,7 @@
   var attrs = function (set, name, index, prefix) {
     var out = [],
         pre = prefix ? prefix + '-' : '',
-        defs = /^(?:as|set|type|invert|value|label|unique|multi(?:ple)?|name|id|add|rm)$/;
+        defs = /^(?:as|set|type|invert|value|update|label|unique|multi(?:ple)?|name|id|add|rm)$/;
 
     for (var key in set) {
       if ( ! defs.exec(key) || prefix) {
@@ -66,6 +66,8 @@
         }
       }
     }
+
+    set.update && out.push('data-metachange="' + set.update + '"');
 
     if (name && index) {
       out.push('name="' + name + '[' + index + ']"');
@@ -109,10 +111,6 @@
 
 
   var build = {
-
-    raw: function (key, name, value, params) {
-      return String(value);
-    },
 
     text: function (key, name, value, params) {
       var html = '',
@@ -284,18 +282,19 @@
 
   var item = function (key, name, value, params) {
     var fn,
+        html = [],
         defs = { as: 'scalar' },
         config = $.extend(defs, params);
 
-    if ('function' === typeof config.val) {
-      fn = config.val;
+    html.push(build[config.as](key, name, value, config));
 
-      delete config.val;
+    config.before = 'function' === typeof config.before ? config.before(value) : config.before;
+    config.before && html.unshift('<div class="before">' + config.before + '</div>');
 
-      value = fn(value, { key: key, name: name, params: config });
-    }
+    config.after = 'function' === typeof config.after ? config.after(value) : config.after;
+    config.after && html.push('<div class="after">' + config.after + '</div>');
 
-    return build[config.as](key, name, value, config);
+    return html.join('');
   };
 
 
@@ -336,7 +335,7 @@
   };
 
 
-  $('body').on('click', 'dd.hash a.add', function () {
+  $('body').on('click', '.metadata dd.hash a.add', function () {
     var el = $(this),
         dl = el.closest('dl'),
         dd = dl.find('dd.mock').eq(0),
@@ -361,8 +360,16 @@
       });
 
       tmp.appendTo(dl);
-  }).on('click', 'dd.field:not(.mock) a.rm', function () {
+  }).on('click', '.metadata dd.field:not(.mock) a.rm', function () {
     $(this).closest('dd').remove();
+  }).on('keydown change', '.metadata [data-metachange]', function (e) {
+    e.t && clearTimeout(e.t);
+    e.t = setTimeout(function () {
+      var el = $(e.currentTarget),
+          fire = 'update.' + el.data('metachange');
+
+      el.trigger($.Event(fire));
+    }, 33);
   });
 
 
